@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kintsugi | Nutrition</title>
+  <style>
+    :root{
+      --bg1:#040b3a; --bg2:#0a1f77; --bg3:#061041;
+      --gold:#8a6b11; --nav:#ffe27a; --nav2:#ffd65a;
+      --softShadow: 0 12px 30px rgba(0,0,0,.35);
+      --white:#fff; --ink:#121212;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; color:var(--white);
+      background:
+        radial-gradient(1200px 520px at 78% 12%, rgba(255,210,90,.22), transparent 55%),
+        linear-gradient(120deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+    }
+    .font-ui{ font-family:"Clear Sans","Segoe UI",Arial,sans-serif; }
+    .wrap{ width:min(1180px, 96vw); margin:20px auto 60px; padding:0 10px; }
+    .topbar{ display:flex; align-items:center; gap:18px; margin-top:10px; }
+
+    .brandPill{
+      display:flex; align-items:center; gap:14px;
+      padding:16px 24px 16px 16px; border-radius:26px;
+      background: linear-gradient(90deg, #2b1c00, var(--gold));
+      box-shadow: var(--softShadow);
+      min-width:340px;
+    }
+
+   .logoBox{
+      width:62px;
+      height:62px;
+      border-radius:14px;
+      position:relative;
+      overflow:visible;
+      outline: 3px solid rgba(255,255,255,.15);
+      flex:0 0 auto;
+    }
+    .logoBox img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain; 
+      display: block;
+      border-radius:15px;
+    }
+
+    .brandName{
+      font-size:42px; font-weight:700; letter-spacing:.5px; line-height:1;
+      color:#fff; text-decoration:none; display:inline-block;
+    }
+    .brandName:hover{ filter:brightness(1.06); transform: translateY(-1px); }
+
+    .navPill{
+      flex:1; display:flex; justify-content:space-between; align-items:center; gap:12px;
+      padding:12px 18px; border-radius:18px;
+      background: linear-gradient(180deg, var(--nav), var(--nav2));
+      box-shadow: var(--softShadow); color:var(--ink);
+    }
+    .navPill a{
+      text-decoration:none; color:#0f0f0f; padding:8px 14px; border-radius:999px;
+      font-weight:700; border:2px solid transparent; transition:.18s ease;
+    }
+    .navPill a:hover{ background: rgba(255,255,255,.35); transform: translateY(-1px); }
+    .navPill a.active{ border-color:#111; background: rgba(255,255,255,.25); }
+
+    .main{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .Nutritionimage{
+      width:320px;
+      height:200px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .Nutritionimage img{
+      max-width:350px;
+      max-height:350px;
+      display:block;
+      position:relative;
+      margin-top: 150px;
+    }
+
+    .panel{
+      border-radius:16px;
+      background: linear-gradient(180deg, rgba(6,15,70,.75), rgba(6,10,45,.75));
+      border:2px solid rgba(255,255,255,.10);
+      box-shadow: var(--softShadow);
+      padding:16px;
+    }
+
+    .dateRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .dateCenter{
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    }
+    .dateBtn{
+      height:40px;
+      padding:0 18px;
+      border-radius:999px;
+      border:2px solid rgba(255,226,122,.65);
+      background: rgba(255,226,122,.18);
+      color:#fff;
+      font-weight:900;
+      cursor:pointer;
+      transition:.12s ease;
+    }
+    .dateBtn:hover{ transform: translateY(-1px); filter:brightness(1.05); }
+
+    .arrowBtn{
+      width:44px; height:40px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      color:#fff;
+      font-size:20px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .kcalPill{
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+      font-weight:900;
+    }
+
+    .mealplanBox{
+      padding:14px;
+      border-radius:14px;
+      background: linear-gradient(180deg, rgba(6,15,70,.7), rgba(6,10,45,.7));
+      border:1px solid rgba(255,255,255,.10);
+      min-height: 240px;
+      white-space:pre-wrap;
+      line-height:1.35;
+    }
+
+    .genRow{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .textInput{
+      width:min(360px, 92vw);
+      height:38px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,.15);
+      background: rgba(0,0,0,.18);
+      color:#fff;
+      padding:0 14px;
+      outline:none;
+    }
+    .btn{
+      height:38px;
+      border-radius:999px;
+      border:2px solid rgba(255,226,122,.65);
+      background: rgba(255,226,122,.18);
+      color:#fff;
+      font-weight:900;
+      cursor:pointer;
+      padding:0 14px;
+      transition:.12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter:brightness(1.05); }
+    .btn.secondary{
+      border-color: rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+    }
+
+    input[type="date"]{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    @media (max-width: 980px){
+      .topbar{flex-direction:column; align-items:stretch;}
+      .brandPill{min-width:unset;}
+      .main{grid-template-columns:1fr;}
+      .imageHolder{height:240px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brandPill font-ui">
+        <div class="logoBox"><img src="C:\Users\Hp\Downloads\Kintsugilogo.png"></div>
+        <a class="brandName" href="kintsugi.html">Kintsugi</a>
+      </div>
+
+      <nav class="navPill font-ui">
+        <a href="workouts.html">Workouts</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="therapy.html">Therapy</a>
+        <a href="progress.html">Progress</a>
+      </nav>
+    </div>
+
+    <div class="main">
+      <div class="Nutritionimage" ><img src="https://i.pinimg.com/564x/be/6a/d0/be6ad0d1907a3df5f926e68e62f748b1.jpg"></div>
+
+      <div class="panel font-ui">
+        <div class="dateRow"> 
+          <div class="dateCenter">
+            <button class="arrowBtn" id="prevDay">‹</button>
+            <button class="dateBtn" id="dateBtn">27th November 2025</button>
+            <button class="arrowBtn" id="nextDay">›</button>
+          </div>
+          <div class="kcalPill" id="kcalPill">Total kcal: 0</div>
+        </div>
+
+        <div class="mealplanBox" id="mealplanBox">Meal plan inserted here</div>
+
+        <div class="genRow">
+          <input class="textInput" id="mealPrompt" placeholder="e.g. high protein, vegetarian, 2000 kcal" />
+          <button class="btn" id="genMeal">Generate meal plan</button>
+          <button class="btn secondary" id="deleteMeal">Delete plan</button>
+        </div>
+
+        <input type="date" id="hiddenDate" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+    document.querySelectorAll(".navPill a").forEach(a=>{
+      if(a.getAttribute("href") === "nutrition.html") a.classList.add("active");
+    });
+
+    const key = "kintsugi_meals_v1";
+    const saved = JSON.parse(localStorage.getItem(key) || "{}"); 
+
+    let selected = new Date(2025, 10, 27); 
+    const dateBtn = document.getElementById("dateBtn");
+    const hiddenDate = document.getElementById("hiddenDate");
+    const mealplanBox = document.getElementById("mealplanBox");
+    const kcalPill = document.getElementById("kcalPill");
+
+    function toISO(d){
+      const y=d.getFullYear();
+      const m=String(d.getMonth()+1).padStart(2,"0");
+      const da=String(d.getDate()).padStart(2,"0");
+      return `${y}-${m}-${da}`;
+    }
+    function pretty(d){
+      const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+      const day=d.getDate();
+      const suffix = (day%10===1 && day!==11)?"st":(day%10===2 && day!==12)?"nd":(day%10===3 && day!==13)?"rd":"th";
+      return `${day}${suffix} ${months[d.getMonth()]} ${d.getFullYear()}`;
+    }
+
+    function render(){
+      dateBtn.textContent = pretty(selected);
+      const iso = toISO(selected);
+      const data = saved[iso];
+      mealplanBox.textContent = data?.text || "Meal plan inserted here";
+      kcalPill.textContent = `Total kcal: ${data?.kcal || 0}`;
+      hiddenDate.value = iso;
+    }
+
+    function smartMealGenerator(prompt){
+      const p = (prompt||"").toLowerCase();
+      const target = p.includes("2500")?2500 : p.includes("2200")?2200 : p.includes("2000")?2000 : 1800;
+
+      const style =
+        p.includes("vegetarian") ? "Vegetarian" :
+        p.includes("vegan") ? "Vegan" :
+        p.includes("high protein") || p.includes("protein") ? "High-protein" :
+        "Balanced";
+
+      const meals = [
+        {name:"Breakfast", item: style==="Vegan" ? "Oats + banana + peanut butter" : "Greek yogurt + berries + granola", kcal: Math.round(target*0.25)},
+        {name:"Lunch", item: style==="Vegetarian" ? "Chickpea bowl + rice + salad" : "Chicken wrap + salad", kcal: Math.round(target*0.35)},
+        {name:"Snack", item: "Fruit + nuts", kcal: Math.round(target*0.10)},
+        {name:"Dinner", item: style==="Vegan" ? "Tofu stir-fry + noodles" : "Salmon + potatoes + veg", kcal: Math.round(target*0.30)}
+      ];
+
+      const total = meals.reduce((a,b)=>a+b.kcal,0);
+      const text =
+`${style} meal plan (target ~${target} kcal)
+
+${meals[0].name}: ${meals[0].item} (~${meals[0].kcal} kcal)
+${meals[1].name}: ${meals[1].item} (~${meals[1].kcal} kcal)
+${meals[2].name}: ${meals[2].item} (~${meals[2].kcal} kcal)
+${meals[3].name}: ${meals[3].item} (~${meals[3].kcal} kcal)
+
+Tip: drink water and keep portions realistic.
+`;
+      return { text, kcal: total };
+    }
+
+    document.getElementById("prevDay").addEventListener("click", ()=>{
+      selected.setDate(selected.getDate()-1);
+      render();
+    });
+    document.getElementById("nextDay").addEventListener("click", ()=>{
+      selected.setDate(selected.getDate()+1);
+      render();
+    });
+
+    dateBtn.addEventListener("click", ()=>{
+      hiddenDate.showPicker?.();
+      hiddenDate.focus();
+    });
+
+    hiddenDate.addEventListener("change", ()=>{
+      const [y,m,d] = hiddenDate.value.split("-").map(Number);
+      selected = new Date(y, m-1, d);
+      render();
+    });
+
+    document.getElementById("genMeal").addEventListener("click", ()=>{
+      const iso = toISO(selected);
+      const res = smartMealGenerator(document.getElementById("mealPrompt").value);
+      saved[iso] = res;
+      localStorage.setItem(key, JSON.stringify(saved));
+      render();
+    });
+
+    document.getElementById("deleteMeal").addEventListener("click", ()=>{
+      const iso = toISO(selected);
+      if(!saved[iso]){ alert("No meal plan saved on this date."); return; }
+      if(!confirm("Delete this meal plan?")) return;
+
+      delete saved[iso];
+      localStorage.setItem(key, JSON.stringify(saved));
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

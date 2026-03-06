@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kintsugi | Home</title>
+  <style>
+    :root{
+      --bg1:#040b3a;
+      --bg2:#0a1f77;
+      --bg3:#061041;
+
+      --gold:#8a6b11;
+      --nav:#ffe27a;
+      --nav2:#ffd65a;
+
+      --panel:#081a66;
+      --panel2:#06134f;
+
+      --white:#ffffff;
+      --ink:#0f0f0f;
+
+      --softShadow: 0 12px 30px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--white);
+      background:
+        radial-gradient(1200px 500px at 80% 20%, rgba(255,210,90,.25), transparent 55%),
+        radial-gradient(900px 500px at 85% 65%, rgba(255,210,90,.18), transparent 60%),
+        linear-gradient(120deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+      overflow-x:hidden;
+    }
+
+    .font-ui{ font-family:"Clear Sans","Segoe UI",Arial,sans-serif; }
+    .font-content{ font-family:"Cooper BT","Georgia",serif; }
+
+    .wrap{
+      width:min(1100px, 96vw);
+      margin:20px auto 40px;
+      padding:0 10px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-top:10px;
+    }
+
+    .brandPill{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:16px 24px 16px 16px;
+      border-radius:26px;
+      background: linear-gradient(90deg, #2b1c00, var(--gold));
+      box-shadow: var(--softShadow);
+      min-width:340px;
+    }
+
+    .logoBox{
+      width:62px;
+      height:62px;
+      border-radius:14px;
+      position:relative;
+      overflow:visible;
+      outline: 3px solid rgba(255,255,255,.15);
+      flex:0 0 auto;
+    }
+    .logoBox img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain; 
+      display: block;
+      border-radius:15px;
+    }
+    .brandName{
+      font-size:42px;
+      font-weight:700;
+      letter-spacing:.5px;
+      line-height:1;
+      color:#fff;
+      text-decoration:none;
+      display:inline-block;
+    }
+    .brandName:hover{
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+     .navPill{
+      flex:1;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:12px 18px;
+      border-radius:18px;
+      background: linear-gradient(180deg, var(--nav), var(--nav2));
+      box-shadow: var(--softShadow);
+      color: var(--ink);
+    }
+
+    .navPill a{
+      text-decoration:none;
+      color:var(--ink);
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:700;
+      transition:.18s ease;
+      border:2px solid transparent;
+    }
+    .navPill a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.35);
+    }
+    .navPill a.active{
+      border-color:#111;
+      background: rgba(255,255,255,.25);
+    }
+
+    .homeGrid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:26px;
+      margin-top:26px;
+      align-items:center;
+    }
+
+    .welcome{ padding:18px 10px; }
+    .welcome h1{
+      margin:0;
+      font-size:44px;
+      font-weight:400;
+      opacity:.95;
+    }
+    .welcome h2{
+      margin:6px 0 0;
+      font-size:58px;
+      font-weight:500;
+      letter-spacing:.5px;
+    }
+
+    .ctaRow{
+      margin-top:22px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .circleArrow{
+      width:46px;
+      height:46px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, #ffd772, #b98308);
+      display:grid;
+      place-items:center;
+      box-shadow: var(--softShadow);
+      color:#0f0f0f;
+      font-size:22px;
+      font-weight:900;
+      text-decoration:none;
+    }
+    .ctaBtn{
+      min-width: 320px;
+      height:46px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(0,0,0,.35), rgba(255,200,65,.95));
+      box-shadow: var(--softShadow);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      color:#fff;
+      font-weight:900;
+      letter-spacing:.6px;
+      border: 2px solid rgba(255,255,255,.08);
+    }
+    .ctaBtn:hover{ filter: brightness(1.05); transform: translateY(-1px); }
+
+    .homepagepic img{
+      width:300px;
+      height:285px;
+      object-fit:contain;
+      display:block;
+    }
+
+
+    @media (max-width: 900px){
+      .topbar{ flex-direction:column; align-items:stretch; }
+      .brandPill{ min-width:unset; }
+      .homeGrid{ grid-template-columns: 1fr; }
+      .homepagepic{ margin: 0; width: min(420px, 92vw); }
+      .ctaBtn{ min-width: 240px; width:100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brandPill font-ui">
+        <div class="logoBox" ><img src="C:\Users\Hp\Downloads\Kintsugilogo.png"></div>
+        <a class="brandName" href="kintsugi.html">Kintsugi</a>
+      </div>
+
+      <nav class="navPill font-ui" aria-label="Main navigation">
+        <a href="workouts.html">Workouts</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="therapy.html">Therapy</a>
+        <a href="progress.html">Progress</a>
+      </nav>
+    </div>
+
+    <div class="homeGrid">
+      <div class="welcome font-content">
+        <h1>Welcome</h1>
+        <h2>To Kintsugi</h2>
+
+        <div class="ctaRow font-ui">
+          <a class="circleArrow" href="https://bddfoundation.org/" target="_blank" rel="noopener">→</a>
+          <a class="ctaBtn" href="https://bddfoundation.org/" target="_blank" rel="noopener">
+            LEARN ABOUT BDD
+          </a>
+        </div>
+      </div>
+
+      <div class="homepagepic"> <img src="C:\Users\Hp\Downloads\kintsugihomepage-removebg-preview.png"></div>
+    </div>
+  </div>
+
+  <script>
+    
+    const links = document.querySelectorAll(".navPill a");
+    const path = location.pathname.split("/").pop() || "kintsugi.html";
+    links.forEach(a=>{
+      if(a.getAttribute("href") === path) a.classList.add("active");
+    });
+  </script>
+</body>
+</html>

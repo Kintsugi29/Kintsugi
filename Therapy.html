@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kintsugi | Therapy</title>
+  <style>
+    :root{
+      --bg1:#040b3a; --bg2:#0a1f77; --bg3:#061041;
+      --gold:#8a6b11; --nav:#ffe27a; --nav2:#ffd65a;
+      --softShadow: 0 12px 30px rgba(0,0,0,.35);
+      --white:#fff; --ink:#121212;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; color:var(--white);
+      background:
+        radial-gradient(1200px 520px at 78% 12%, rgba(255,210,90,.22), transparent 55%),
+        linear-gradient(120deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+    }
+    .font-ui{ font-family:"Clear Sans","Segoe UI",Arial,sans-serif; }
+    .wrap{ width:min(1180px, 96vw); margin:20px auto 60px; padding:0 10px; }
+    .topbar{ display:flex; align-items:center; gap:18px; margin-top:10px; }
+
+    .brandPill{
+      display:flex; align-items:center; gap:14px;
+      padding:16px 24px 16px 16px; border-radius:26px;
+      background: linear-gradient(90deg, #2b1c00, var(--gold));
+      box-shadow: var(--softShadow);
+      min-width:340px;
+    }
+   .logoBox{
+      width:62px;
+      height:62px;
+      border-radius:14px;
+      position:relative;
+      overflow:visible;
+      outline: 3px solid rgba(255,255,255,.15);
+      flex:0 0 auto;
+    }
+    .logoBox img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain; 
+      display: block;
+      border-radius:15px;
+    }
+
+    .brandName{
+      font-size:42px; font-weight:700; letter-spacing:.5px; line-height:1;
+      color:#fff; text-decoration:none; display:inline-block;
+    }
+    .brandName:hover{ filter:brightness(1.06); transform: translateY(-1px); }
+
+    .navPill{
+      flex:1; display:flex; justify-content:space-between; align-items:center; gap:12px;
+      padding:12px 18px; border-radius:18px;
+      background: linear-gradient(180deg, var(--nav), var(--nav2));
+      box-shadow: var(--softShadow); color:var(--ink);
+    }
+    .navPill a{
+      text-decoration:none; color:#0f0f0f; padding:8px 14px; border-radius:999px;
+      font-weight:700; border:2px solid transparent; transition:.18s ease;
+    }
+    .navPill a:hover{ background: rgba(255,255,255,.35); transform: translateY(-1px); }
+    .navPill a.active{ border-color:#111; background: rgba(255,255,255,.25); }
+
+    .rail{
+      margin-top:26px;
+      padding:16px;
+      border-radius:16px;
+      background: linear-gradient(180deg, rgba(6,15,70,.75), rgba(6,10,45,.75));
+      border:2px solid rgba(255,255,255,.10);
+      box-shadow: var(--softShadow);
+    }
+
+    .rowTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .titlePill{   
+      font-weight:900;
+      letter-spacing:.6px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,226,122,.18);
+      border: 1px solid rgba(255,226,122,.35);
+    }
+    .arrows{ display:flex; gap:10px; }
+    .arrowBtn{
+      width:52px; height:46px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      color:#fff;
+      font-size:22px;
+      font-weight:900;
+      cursor:pointer;
+      transition:.14s ease;
+    }
+    .arrowBtn:hover{ transform: translateY(-1px); filter:brightness(1.06); }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:18px;
+    }
+    .card{
+      border-radius:16px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.12);
+      padding:12px;
+    }
+    .videoWrap{    
+      border-radius:14px;
+      overflow:hidden;
+      outline: 3px solid rgba(255,255,255,.14);
+      box-shadow: 0 10px 20px rgba(0,0,0,.25);
+      background:#000;
+      aspect-ratio: 16 / 9;
+    }
+    iframe{ width:100%; height:100%; border:0; display:block; }
+    .desc{
+      margin-top:10px;
+      font-size:14px;
+      line-height:1.35;
+      opacity:.95;
+    }
+    .desc strong{
+      display:block;
+      font-size:15px;
+      margin-bottom:6px;
+      opacity:1;
+    }
+
+    @media (max-width: 980px){
+      .topbar{flex-direction:column; align-items:stretch;}
+      .brandPill{min-width:unset;}
+      .cards{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brandPill font-ui">
+       <div class="logoBox"><img src="C:\Users\Hp\Downloads\Kintsugilogo.png"></div>
+        <a class="brandName" href="kintsugi.html">Kintsugi</a>
+      </div>
+
+      <nav class="navPill font-ui">
+        <a href="workouts.html">Workouts</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="therapy.html">Therapy</a>
+        <a href="progress.html">Progress</a>
+      </nav>
+    </div>
+
+    <section class="rail font-ui">
+      <div class="rowTop">
+        <div class="titlePill">Therapy Videos</div>
+        <div class="arrows">
+          <button class="arrowBtn" id="prev">‹</button>
+          <button class="arrowBtn" id="next">›</button>
+        </div>
+      </div>
+
+      <div class="cards" id="cards"></div>
+    </section>
+  </div>
+
+  <script>
+
+    document.querySelectorAll(".navPill a").forEach(a=>{
+      if(a.getAttribute("href") === "therapy.html") a.classList.add("active");
+    });
+
+    const videos = [
+      { id:"8zApG39IL-k", title:"BDD Treatment: CBT, ERP and Behavioral Experiments", desc:"International OCD foundation" },
+      { id:"M7lc1UVf-VE", title:"Video 2: Content", desc:"Explain what the user will learn." },
+      { id:"aqz-KE-bpKQ", title:"Video 3: Content", desc:"Keep it simple, not too long." },
+      { id:"jNQXAC9IVRw", title:"Video 4: Content", desc:"More videos show when you scroll." },
+      { id:"dQw4w9WgXcQ", title:"Video 5: Content", desc:"Just placeholders rn, change them." },
+      { id:"kJQP7kiw5Fk", title:"Video 6: Content", desc:"You can add as many as you want." }
+    ];
+
+    let start = 0;
+    const cardsEl = document.getElementById("cards");
+
+    function render(){
+      cardsEl.innerHTML = "";
+      const slice = videos.slice(start, start+3);
+
+      slice.forEach(v=>{
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="videoWrap">
+            <iframe
+              src="https://www.youtube.com/embed/${v.id}"
+              title="${v.title}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+          <div class="desc">
+            <strong>${v.title}</strong>
+            ${v.desc}
+          </div>
+        `;
+        cardsEl.appendChild(card);
+      });
+    }
+
+    document.getElementById("prev").addEventListener("click", ()=>{
+      start -= 3;
+      if(start < 0) start = Math.max(0, videos.length - (videos.length % 3 || 3));
+      render();
+    });
+
+    document.getElementById("next").addEventListener("click", ()=>{
+      start += 3;
+      if(start >= videos.length) start = 0;
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

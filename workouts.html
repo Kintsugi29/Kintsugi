@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kintsugi | Workouts</title>
+  <style>
+    :root{
+      --bg1:#040b3a; --bg2:#0a1f77; --bg3:#061041;
+      --gold:#8a6b11; --nav:#ffe27a; --nav2:#ffd65a;
+      --softShadow: 0 12px 30px rgba(0,0,0,.35);
+      --white:#fff; --ink:#121212;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; color:var(--white);
+      background:
+        radial-gradient(1200px 520px at 78% 12%, rgba(255,210,90,.22), transparent 55%),
+        linear-gradient(120deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+    }
+    .font-ui{ font-family:"Clear Sans","Segoe UI",Arial,sans-serif; }
+    .font-content{ font-family:"Cooper BT","Georgia",serif; }
+
+    .wrap{ width:min(1180px, 96vw); margin:20px auto 60px; padding:0 10px; }
+    .topbar{ display:flex; align-items:center; gap:18px; margin-top:10px; }
+
+    .brandPill{
+      display:flex; align-items:center; gap:14px;
+      padding:16px 24px 16px 16px; border-radius:26px;
+      background: linear-gradient(90deg, #2b1c00, var(--gold));
+      box-shadow: var(--softShadow);
+      min-width:340px;
+    }
+    .logoBox{
+      width:62px;
+      height:62px;
+      border-radius:14px;
+      position:relative;
+      overflow:visible;
+      outline: 3px solid rgba(255,255,255,.15);
+      flex:0 0 auto;
+    }
+    .logoBox img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain; 
+      display: block;
+      border-radius:15px;
+    }
+    .brandName{
+      font-size:42px; font-weight:700; letter-spacing:.5px; line-height:1;
+      color:#fff; text-decoration:none; display:inline-block;
+    }
+    .brandName:hover{ filter:brightness(1.06); transform: translateY(-1px); }
+
+    .navPill{
+      flex:1; display:flex; justify-content:space-between; align-items:center; gap:12px;
+      padding:12px 18px; border-radius:18px;
+      background: linear-gradient(180deg, var(--nav), var(--nav2));
+      box-shadow: var(--softShadow); color:var(--ink);
+    }
+    .navPill a{
+      text-decoration:none; color:#0f0f0f; padding:8px 14px; border-radius:999px;
+      font-weight:700; border:2px solid transparent; transition:.18s ease;
+    }
+    .navPill a:hover{ background: rgba(255,255,255,.35); transform: translateY(-1px); }
+    .navPill a.active{ border-color:#111; background: rgba(255,255,255,.25); }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap:22px;
+      margin-top:26px;
+      align-items:start;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(10,20,90,.7), rgba(6,10,60,.7));
+      border:2px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      box-shadow: var(--softShadow);
+      padding:16px;
+    }
+
+    .calHeader{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom:12px;
+    }
+    .calTitle{
+      font-weight:900; letter-spacing:.6px; font-size:18px;
+      padding:8px 12px; border-radius:999px;
+      background: rgba(255,226,122,.20);
+      border: 1px solid rgba(255,226,122,.35);
+    }
+    .calNav{ display:flex; gap:10px; align-items:center; }
+
+    .iconBtn{
+      width:40px; height:34px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.22);
+      color:#fff; font-weight:900; cursor:pointer;
+      transition:.15s ease;
+    }
+    .iconBtn:hover{ transform: translateY(-1px); filter:brightness(1.05); }
+
+    .monthYear{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .weekdays, .days{
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap:8px;
+    }
+    .weekdays div{
+      text-align:center;
+      font-size:12px;
+      opacity:.9;
+      padding:6px 0;
+      letter-spacing:.5px;
+    }
+    .day{
+      height:44px;
+      border-radius:12px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer;
+      transition:.12s ease;
+      position:relative;
+      user-select:none;
+    }
+    .day:hover{ transform: translateY(-1px); background: rgba(255,255,255,.12); }
+    .day.muted{ opacity:.35; cursor:default; }
+    .day.selected{
+      outline:2px solid rgba(255,226,122,.85);
+      background: rgba(255,226,122,.18);
+      font-weight:900;
+    }
+    .dot{
+      position:absolute; bottom:6px;
+      width:6px; height:6px; border-radius:99px;
+      background: rgba(255,226,122,.95);
+      box-shadow: 0 0 10px rgba(255,226,122,.35);
+    }
+
+    .planBox{ min-height: 420px; }
+    .planTop{
+      display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .planTop .title{
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:.6px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .generateRow{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .textInput{
+      width:min(320px, 92vw);
+      height:36px;
+      border-radius:999px;
+      border:2px solid rgba(255,255,255,.15);
+      background: rgba(0,0,0,.18);
+      color:#fff;
+      padding:0 14px;
+      outline:none;
+    }
+    .btn{
+      height:36px;
+      border-radius:999px;
+      border:2px solid rgba(255,226,122,.65);
+      background: rgba(255,226,122,.18);
+      color:#fff;
+      font-weight:900;
+      cursor:pointer;
+      padding:0 14px;
+      transition:.12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); filter:brightness(1.05); }
+    .btn.secondary{
+      border-color: rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+    }
+
+    .planContent{
+      margin-top:10px;
+      padding:14px;
+      border-radius:14px;
+      background: linear-gradient(180deg, rgba(6,15,70,.7), rgba(6,10,45,.7));
+      border:1px solid rgba(255,255,255,.10);
+      min-height: 320px;
+      white-space:pre-wrap;
+      line-height:1.35;
+    }
+
+    .modalBack{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center; justify-content:center;
+      padding:18px;
+      z-index:20;
+    }
+    .modal{
+      width:min(820px, 96vw);
+      border-radius:18px;
+      background: linear-gradient(180deg, rgba(10,25,110,.92), rgba(5,10,55,.92));
+      border:2px solid rgba(255,255,255,.14);
+      box-shadow: var(--softShadow);
+      padding:16px;
+    }
+    .modalTop{
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      margin-bottom:10px;
+    }
+    .modalTitle{
+      font-weight:900;
+      letter-spacing:.5px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,226,122,.16);
+      border: 1px solid rgba(255,226,122,.35);
+    }
+
+    @media (max-width: 980px){
+      .topbar{flex-direction:column; align-items:stretch;}
+      .brandPill{min-width:unset;}
+      .grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brandPill font-ui">
+       <div class="logoBox"><img src="C:\Users\Hp\Downloads\Kintsugilogo.png"></div>
+        <a class="brandName" href="kintsugi.html">Kintsugi</a>
+      </div>
+
+      <nav class="navPill font-ui">
+        <a href="workouts.html">Workouts</a>
+        <a href="nutrition.html">Nutrition</a>
+        <a href="therapy.html">Therapy</a>
+        <a href="progress.html">Progress</a>
+      </nav>
+    </div>
+
+    <div class="grid">
+      <section class="card font-ui">
+        <div class="calHeader">
+          <div class="calTitle">Workouts Calendar</div>
+          <div class="calNav">
+            <button class="iconBtn" id="prevMonth">‹</button>
+            <button class="iconBtn" id="nextMonth">›</button>
+          </div>
+        </div>
+
+        <div class="monthYear">
+          <span class="pill" id="monthLabel">Month</span>
+          <span class="pill" id="yearLabel">Year</span>
+          <button class="btn secondary" id="jumpToday">Today</button>
+        </div>
+
+        <div class="weekdays">
+          <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THR</div><div>FRI</div><div>SAT</div>
+        </div>
+        <div style="height:8px"></div>
+        <div class="days" id="daysGrid"></div>
+      </section>
+
+      <section class="card planBox font-ui">
+        <div class="planTop">
+          <div class="title" id="selectedLabel">Select a date</div>
+
+          <div class="generateRow">
+            <input class="textInput" id="prompt" placeholder="e.g. legs strength 30min" />
+            <button class="btn" id="genBtn">Generate plan</button>
+            <button class="btn secondary" id="deletePlan">Delete plan</button>
+            <button class="btn secondary" id="openPopup">Open enlarged view</button>
+          </div>
+        </div>
+
+        <div class="planContent" id="planContent">Pick a date from the calendar.</div>
+      </section>
+    </div>
+  </div>
+
+  <div class="modalBack" id="modalBack">
+    <div class="modal font-ui">
+      <div class="modalTop">
+        <div class="modalTitle" id="modalTitle">Workout Plan</div>
+        <button class="btn secondary" id="closeModal">Close</button>
+      </div>
+      <div class="planContent" id="modalBody" style="min-height:260px;"></div>
+    </div>
+  </div>
+
+  <script>
+    
+    document.querySelectorAll(".navPill a").forEach(a=>{
+      if(a.getAttribute("href") === "workouts.html") a.classList.add("active");
+    });
+
+    const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    let viewDate = new Date();
+    viewDate.setDate(1);
+
+    const plansKey = "kintsugi_workout_plans_v1";
+    const plans = JSON.parse(localStorage.getItem(plansKey) || "{}");
+    let selectedISO = null;
+
+    const monthLabel = document.getElementById("monthLabel");
+    const yearLabel  = document.getElementById("yearLabel");
+    const daysGrid   = document.getElementById("daysGrid");
+    const selectedLabel = document.getElementById("selectedLabel");
+    const planContent = document.getElementById("planContent");
+    const promptEl = document.getElementById("prompt");
+
+    const modalBack = document.getElementById("modalBack");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
+
+    function toISO(d){
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const day = String(d.getDate()).padStart(2,"0");
+      return `${y}-${m}-${day}`;
+    }
+    function prettyISO(iso){
+      const [y,m,d] = iso.split("-");
+      return `${d}/${m}/${y}`;
+    }
+
+    function renderCalendar(){
+      monthLabel.textContent = monthNames[viewDate.getMonth()];
+      yearLabel.textContent  = viewDate.getFullYear();
+      daysGrid.innerHTML = "";
+
+      const year = viewDate.getFullYear();
+      const month = viewDate.getMonth();
+      const firstDay = new Date(year, month, 1);
+      const startWeekday = firstDay.getDay();
+      const daysInMonth = new Date(year, month+1, 0).getDate();
+
+      for(let i=0;i<startWeekday;i++){
+        const div = document.createElement("div");
+        div.className = "day muted";
+        daysGrid.appendChild(div);
+      }
+
+      for(let day=1; day<=daysInMonth; day++){
+        const d = new Date(year, month, day);
+        const iso = toISO(d);
+
+        const cell = document.createElement("div");
+        cell.className = "day";
+        cell.textContent = day;
+
+        if(plans[iso]) {
+          const dot = document.createElement("div");
+          dot.className = "dot";
+          cell.appendChild(dot);
+        }
+
+        if(selectedISO === iso) cell.classList.add("selected");
+
+        cell.addEventListener("click", ()=>{
+          selectedISO = iso;
+          selectedLabel.textContent = `Workout plan for ${prettyISO(iso)}`;
+          planContent.textContent = plans[iso] || "No plan yet. Generate one.";
+          renderCalendar();
+        });
+
+        daysGrid.appendChild(cell);
+      }
+    }
+
+    function smartWorkoutGenerator(userPrompt){
+      const prompt = (userPrompt || "").trim().toLowerCase();
+      const time = prompt.includes("60") ? "60 min" : prompt.includes("45") ? "45 min" : "30 min";
+
+      const focus =
+        prompt.includes("legs") ? "Legs + core" :
+        prompt.includes("arms") ? "Upper body" :
+        prompt.includes("cardio") ? "Cardio endurance" :
+        prompt.includes("strength") ? "Full-body strength" :
+        prompt.includes("core") ? "Core + stability" :
+        "Full-body";
+
+      const intensity =
+        prompt.includes("easy") ? "Easy" :
+        prompt.includes("hard") || prompt.includes("intense") ? "Hard" :
+        "Medium";
+
+      return `Focus: ${focus}
+Time: ${time}
+Intensity: ${intensity}
+
+Warm-up (5 min)
+- Light jog / marching + dynamic stretches
+
+Main set
+1) Squats or Goblet Squats – 3 x 10-12
+2) Push-ups – 3 x 8-12
+3) Lunges – 3 x 10 each leg
+4) Plank – 3 x 30-45s
+5) Finisher (choose one)
+   - 8 min intervals: 30s fast / 30s slow
+   - OR 3 rounds: 20 jumping jacks + 10 burpees + 20 mountain climbers
+
+Cool down (5 min)
+- Stretch + slow breathing
+
+Notes
+- If it’s too hard, drop 1 set.
+- If it’s too easy, add 1 set or slow the reps.`;
+    }
+
+    function savePlan(iso, text){
+      plans[iso] = text;
+      localStorage.setItem(plansKey, JSON.stringify(plans));
+      renderCalendar();
+    }
+
+    document.getElementById("prevMonth").addEventListener("click", ()=>{
+      viewDate.setMonth(viewDate.getMonth()-1);
+      renderCalendar();
+    });
+    document.getElementById("nextMonth").addEventListener("click", ()=>{
+      viewDate.setMonth(viewDate.getMonth()+1);
+      renderCalendar();
+    });
+    document.getElementById("jumpToday").addEventListener("click", ()=>{
+      const now = new Date();
+      viewDate = new Date(now.getFullYear(), now.getMonth(), 1);
+      selectedISO = toISO(now);
+      selectedLabel.textContent = `Workout plan for ${prettyISO(selectedISO)}`;
+      planContent.textContent = plans[selectedISO] || "No plan yet. Generate one.";
+      renderCalendar();
+    });
+
+    document.getElementById("genBtn").addEventListener("click", ()=>{
+      if(!selectedISO){ alert("Pick a date first."); return; }
+      const generated = smartWorkoutGenerator(promptEl.value);
+      savePlan(selectedISO, generated);
+      planContent.textContent = generated;
+    });
+
+    document.getElementById("deletePlan").addEventListener("click", ()=>{
+      if(!selectedISO){ alert("Pick a date first."); return; }
+      if(!plans[selectedISO]){ alert("No plan saved on this date."); return; }
+      if(!confirm("Delete this workout plan?")) return;
+
+      delete plans[selectedISO];
+      localStorage.setItem(plansKey, JSON.stringify(plans));
+      planContent.textContent = "Plan deleted. Generate a new one if you want.";
+      renderCalendar();
+
+      if(modalBack.style.display === "flex"){
+        modalBody.textContent = "No plan yet.";
+      }
+    });
+
+    document.getElementById("openPopup").addEventListener("click", ()=>{
+      if(!selectedISO){ alert("Pick a date first."); return; }
+      modalTitle.textContent = `Workout Plan • ${prettyISO(selectedISO)}`;
+      modalBody.textContent = plans[selectedISO] || "No plan yet.";
+      modalBack.style.display = "flex";
+    });
+    document.getElementById("closeModal").addEventListener("click", ()=> modalBack.style.display = "none");
+    modalBack.addEventListener("click", (e)=>{ if(e.target === modalBack) modalBack.style.display = "none"; });
+
+    renderCalendar();
+  </script>
+</body>
+</html>
